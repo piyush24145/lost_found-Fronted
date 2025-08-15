@@ -10,7 +10,7 @@ import ReportLostForm from "./pages/ReportLostForm";
 import ReportFoundForm from "./pages/ReportFoundForm";
 import Searchbar from "./pages/Searchbar";
 import ProtectedRoute from "./components/ProtectedRoute"; 
-import Footer from "./components/footer";
+import Footer from "./components/Footer";
 import Aboutus from "./pages/Aboutus";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfileModal from "./pages/EditProfileModal";
@@ -18,10 +18,10 @@ import DetailsLost from "./pages/DetailsLost";
 import DetailsFound from "./pages/DetailsFound";
 import Herosection from "./components/Herosection";
 import MatchedItems from "./pages/MatchedItems";
-import TermsOfUse from "./pages/termsOfUse";
+ import TermsOfUse from "./pages/termsOfUse";
 import Privacy from "./pages/privacy";
 
-const App = () => {
+const APP = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
@@ -54,7 +54,8 @@ const App = () => {
         <Route path="/item-detailsLost/:id" element={<DetailsLost/>} />
         <Route path="/item-detailsFound/:id" element={<DetailsFound/>} />
          <Route path="/hero-section" element={<Herosection/>} />
-         <Route path="/terms-condition" element={<TermsOfUse/>} />
+              <Route path="/terms-condition" element={<TermsOfUse/>} />
+
          <Route path="/privacy-policy" element={<Privacy/>} />
 
 
@@ -119,4 +120,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default APP;
