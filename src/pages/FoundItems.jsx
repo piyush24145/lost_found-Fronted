@@ -18,7 +18,6 @@ const FoundItems = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchFoundItems();
   }, []);
@@ -30,7 +29,6 @@ const FoundItems = () => {
       </div>
     );
   }
-
   if (foundItems.length === 0) {
     return (
       <div className="text-center py-10 text-gray-600 font-semibold">
@@ -38,7 +36,6 @@ const FoundItems = () => {
       </div>
     );
   }
-
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
       <h2 className="text-3xl font-bold mb-6">Found Items</h2>
@@ -57,7 +54,6 @@ const FoundItems = () => {
               alt={item.title}
               className="w-full h-48 object-cover rounded"
             />
-
             <h3 className="text-xl font-semibold mt-3">{item.title}</h3>
             <p className="text-gray-600">{item.description}</p>
             <p className="text-sm text-gray-500 mt-2">📍 {item.location}</p>
@@ -75,5 +71,4 @@ const FoundItems = () => {
     </div>
   );
 };
-
 export default FoundItems;

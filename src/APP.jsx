@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+
+// Common Components
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Herosection from "./components/Herosection";
+
+// User Pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -9,38 +16,58 @@ import FoundItems from "./pages/FoundItems";
 import ReportLostForm from "./pages/ReportLostForm";
 import ReportFoundForm from "./pages/ReportFoundForm";
 import Searchbar from "./pages/Searchbar";
-import ProtectedRoute from "./components/ProtectedRoute"; 
-import Footer from "./components/Footer";
 import Aboutus from "./pages/Aboutus";
 import ProfilePage from "./pages/ProfilePage";
 import EditProfileModal from "./pages/EditProfileModal";
 import DetailsLost from "./pages/DetailsLost";
 import DetailsFound from "./pages/DetailsFound";
-import Herosection from "./components/Herosection";
 import MatchedItems from "./pages/MatchedItems";
- import TermsOfUse from "./pages/termsOfUse";
-import Privacy from "./pages/privacy";
+import TermsOfUse from "./pages/TermsOfUse";
+import Privacy from "./pages/Privacy";
+import AdminModule from "./component/AdminModule";
 
-const APP = () => {
+const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    let storedUser = null;
+
+    try {
+      const savedUser = localStorage.getItem("user");
+      if (savedUser) {
+        storedUser = JSON.parse(savedUser);
+      }
+    } catch (error) {
+      console.error("Invalid user JSON in localStorage, clearing...", error);
+      localStorage.removeItem("user"); // ❌ agar JSON broken h to clear
+    }
+
     setIsAuthenticated(!!token);
+    setUser(storedUser);
   }, []);
 
   const handleLogin = () => {
     setIsAuthenticated(true);
+    try {
+      const storedUser = localStorage.getItem("user");
+      if (storedUser) setUser(JSON.parse(storedUser));
+    } catch (error) {
+      console.error("Error parsing user JSON after login:", error);
+      localStorage.removeItem("user");
+    }
   };
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setIsAuthenticated(false);
+    setUser(null);
   };
 
   return (
     <>
-     
       <Navbar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
       <main className="flex-grow">
         <Routes>
@@ -48,27 +75,24 @@ const APP = () => {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/register" element={<Register onRegister={handleLogin} />} />
-          <Route path="/about" element={<Aboutus/>} />
-         <Route path="/my-profile" element={<ProfilePage/>} />
-         <Route path="/Edit-profile" element={<EditProfileModal/>} />
-        <Route path="/item-detailsLost/:id" element={<DetailsLost/>} />
-        <Route path="/item-detailsFound/:id" element={<DetailsFound/>} />
-         <Route path="/hero-section" element={<Herosection/>} />
-              <Route path="/terms-condition" element={<TermsOfUse/>} />
+          <Route path="/about" element={<Aboutus />} />
+          <Route path="/my-profile" element={<ProfilePage />} />
+          <Route path="/edit-profile" element={<EditProfileModal />} />
+          <Route path="/item-detailsLost/:id" element={<DetailsLost />} />
+          <Route path="/item-detailsfound/:id" element={<DetailsFound />} />
+          <Route path="/hero-section" element={<Herosection />} />
+          <Route path="/terms-condition" element={<TermsOfUse />} />
+          <Route path="/privacy-policy" element={<Privacy />} />
 
-         <Route path="/privacy-policy" element={<Privacy/>} />
-
-
- <Route
+          {/* Protected routes (for authenticated users) */}
+          <Route
             path="/match"
             element={
               <ProtectedRoute isAuthenticated={isAuthenticated}>
-               <MatchedItems/>
+                <MatchedItems />
               </ProtectedRoute>
             }
           />
-
-
           <Route
             path="/lost"
             element={
@@ -86,7 +110,7 @@ const APP = () => {
             }
           />
           <Route
-            path="/reportLost"
+            path="/reportlost"
             element={
               <ProtectedRoute isAuthenticated={isAuthenticated}>
                 <ReportLostForm />
@@ -94,7 +118,7 @@ const APP = () => {
             }
           />
           <Route
-            path="/reportFound"
+            path="/reportfound"
             element={
               <ProtectedRoute isAuthenticated={isAuthenticated}>
                 <ReportFoundForm />
@@ -109,15 +133,23 @@ const APP = () => {
               </ProtectedRoute>
             }
           />
-        </Routes>
-       
-      </main>
-     
-     <Footer/>
-    
-    </>
 
+          {/* ✅ Admin Routes (Only for admins) */}
+          <Route
+            path="/admin/*"
+            element={
+              <ProtectedRoute
+                isAuthenticated={isAuthenticated && user?.role === "admin"}
+              >
+                <AdminModule />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </main>
+      <Footer />
+    </>
   );
 };
 
-export default APP;
+export default App;

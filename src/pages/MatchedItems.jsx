@@ -78,9 +78,9 @@ export default function MatchedItems() {
         🔗 Matched Items
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {matchedItems.map((item) => (
+        {matchedItems.map((item, index) => (
           <div
-            key={item._id}
+            key={`${item._id}-parent-${index}`}  // ✅ unique key for parent
             className="border border-gray-200 rounded-xl shadow-lg p-5 bg-white hover:shadow-xl transition-shadow duration-300"
           >
             <h3 className="text-xl font-bold text-indigo-700 mb-2">{item.title}</h3>
@@ -98,7 +98,10 @@ export default function MatchedItems() {
             </p>
 
             {item.matchedWith && (
-              <div className="mt-3 p-3 border-t border-gray-200 bg-indigo-50 rounded-lg">
+              <div
+                key={`${item.matchedWith._id}-child-${index}`} // ✅ unique key for child
+                className="mt-3 p-3 border-t border-gray-200 bg-indigo-50 rounded-lg"
+              >
                 <h4 className="font-semibold text-indigo-800 mb-2">
                   Matched With
                 </h4>
@@ -114,12 +117,14 @@ export default function MatchedItems() {
                 <p className="text-gray-700 mb-3">
                   <strong>Category:</strong> {item.matchedWith.category}
                 </p>
-              <Link to={`/item-detailsFound/${item._id}`}>  <button
-                  onClick={() => navigate(`/item/${item.matchedWith._id}`)}
-                  className="mt-2 px-4 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
-                >
-                  Know About Founder
-                </button></Link>
+                <Link to={`/item-detailsFound/${item._id}`}>
+                  <button
+                    onClick={() => navigate(`/item/${item.matchedWith._id}`)}
+                    className="mt-2 px-4 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition"
+                  >
+                    Know About Founder
+                  </button>
+                </Link>
               </div>
             )}
           </div>
