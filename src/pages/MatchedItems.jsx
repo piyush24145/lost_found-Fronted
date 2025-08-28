@@ -27,7 +27,6 @@ export default function MatchedItems() {
       try {
         const res = await axios.get(`${baseUrl}/api/items`);
         setItems(res.data);
-
         const matches = [];
         for (let i = 0; i < res.data.length; i++) {
           for (let j = i + 1; j < res.data.length; j++) {

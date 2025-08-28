@@ -27,16 +27,18 @@ function Listings() {
     fetchItems();
   }, []);
 
-  // ✅ Delete Item
-  const deleteItem = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this item?")) return;
-    try {
-      await axios.delete(`${baseUrl}/api/items/${id}`);
-      setItems(items.filter((item) => item._id !== id));
-    } catch (error) {
-      console.error("Delete failed:", error);
-    }
-  };
+// ✅ Delete Item (Admin Panel)
+const deleteItem = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this item?")) return;
+  try {
+    await axios.delete(`${baseUrl}/api/admin/items/${id}`); // 👈 correct route
+    setItems(items.filter((item) => item._id !== id));
+  } catch (error) {
+    console.error("Delete failed:", error.response?.data || error.message);
+    alert(error.response?.data?.message || "Delete failed");
+  }
+};
+
 
   // ✅ Verify Item (after Yes in popup)
   const verifyItem = async () => {

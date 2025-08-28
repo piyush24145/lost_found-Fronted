@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from "../environment";
+
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
@@ -33,7 +34,7 @@ export default function Login({ onLogin }) {
       // ✅ Save token
       localStorage.setItem("token", data.token);
 
-      // ✅ Save user in proper JSON format
+      // ✅ Save user
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -45,10 +46,8 @@ export default function Login({ onLogin }) {
         })
       );
 
-      // ✅ Call App.jsx login handler
       if (onLogin) onLogin();
 
-      // ✅ Redirect after login
       if (data.role === "admin") {
         navigate("/admin");
       } else {
@@ -62,40 +61,92 @@ export default function Login({ onLogin }) {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
-
-        {error && <p className="text-red-500 mb-4">{error}</p>}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full px-4 py-2 border rounded-lg"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+    <div className="min-h-screen flex flex-col">
+      {/* ✅ Main Section with Split Layout */}
+      <div className="flex flex-1">
+        {/* Left Image Section */}
+        <div className="hidden md:flex w-1/2 items-center justify-center bg-gray-200">
+          <img
+            src="/6593bae1-d742-4d01-86c5-d6be4738ef55 (1).png" 
+            alt="Lost & Found Illustration"
+            className="h-full w-full object-cover"
           />
+        </div>
 
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full px-4 py-2 border rounded-lg"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+        {/* Right Login Box */}
+        <div className="flex w-full md:w-1/2 justify-center items-center bg-gradient-to-r from-yellow-50 to-green-50 p-8">
+          <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
-            disabled={loading}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
-        </form>
+            {error && <p className="text-red-500 mb-4">{error}</p>}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="email"
+                placeholder="User Name"
+                className="w-full px-4 py-2 border rounded-lg"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+
+              <input
+                type="password"
+                placeholder="Password"
+                className="w-full px-4 py-2 border rounded-lg"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+                disabled={loading}
+              >
+                {loading ? "Logging in..." : "Sign In"}
+              </button>
+            </form>
+
+            <div className="flex justify-between items-center mt-4 text-sm">
+             <Link to={"/register"}><button
+                type="button"
+                className="text-gray-500 hover:underline"
+                onClick={() => navigate("/signup")}
+              >
+                Sign Up
+              </button></Link> 
+              <button
+                type="button"
+                className="text-blue-500 hover:underline"
+                onClick={() => navigate("/forgot-password")}
+              >
+                Forget Password ?
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
+
+      {/* ✅ Footer */}
+      <footer className="bg-gray-100 py-6 px-8 flex flex-col md:flex-row justify-between items-center text-gray-600 text-sm">
+        <div className="mb-4 md:mb-0">
+          <p className="font-semibold">Help</p>
+          <p>Customer Support</p>
+          <p>Terms & Conditions</p>
+          <p>Privacy Policy</p>
+        </div>
+        <div>
+          <p className="font-semibold">Contact</p>
+          <p>Tel: +91 8340168796</p>
+          <p>Email: piyushkumar04136@gmail.com</p>
+          <div className="flex space-x-4 mt-2">
+            <i className="fab fa-facebook"></i>
+            <i className="fab fa-twitter"></i>
+            <i className="fab fa-instagram"></i>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

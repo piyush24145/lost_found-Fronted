@@ -15,34 +15,34 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
   };
 
   return (
-    <nav className="px-6 py-4 shadow-lg bg-white">
+    <nav className="px-6 py-4 shadow-md bg-white/70 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* Logo */}
+        {/* ✅ Logo */}
         <Link
           to="/"
           className="flex items-center space-x-2 hover:scale-105 transform transition duration-300"
         >
           <img
-            src="INDIALogo.png"
+            src="/image.png"
             alt="Khoja Kya Logo"
-            className="h-10 w-10 object-contain"
+            className="h-12 w-10 object-contain"
           />
-          <span className="text-2xl font-extrabold tracking-wide">
-            Khoja Kya !!
-          </span>
+         <span className="text-2xl font-extrabold tracking-wide bg-gradient-to-r from-green-600 via-red-600 to-yellow-700 bg-clip-text text-transparent drop-shadow-md">
+  Khoja Kya !!
+</span>
+
         </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex space-x-6 items-center">
-          <Link to="/" className="hover:text-yellow-400 transition">Home</Link>
-          <Link to="/about" className="hover:text-yellow-400 transition">About Us</Link>
-          <Link to="/lost" className="hover:text-yellow-400 transition">Lost Items</Link>
-          <Link to="/found" className="hover:text-yellow-400 transition">Found Items</Link>
-          <Link to="/match" className="hover:text-yellow-400 transition">Matched Items</Link>
-          <Link to="/search" className="hover:text-yellow-400 transition">Search</Link>
-          <Link to="/History-claimed" className="hover:text-yellow-400 transition">History</Link>
+        {/* ✅ Desktop Menu */}
+        <div className="hidden md:flex space-x-6 items-center text-gray-700 font-medium">
+          <Link to="/" className="hover:text-yellow-500 transition">Home</Link>
+          <Link to="/about" className="hover:text-yellow-500 transition">About Us</Link>
+          <Link to="/lost" className="hover:text-yellow-500 transition">Lost Items</Link>
+          <Link to="/found" className="hover:text-yellow-500 transition">Found Items</Link>
+          <Link to="/match" className="hover:text-yellow-500 transition">Matched Items</Link>
+          <Link to="/search" className="hover:text-yellow-500 transition">Search</Link>
 
-          {/* If user authenticated */}
+          {/* ✅ If user authenticated */}
           {isAuthenticated ? (
             <div className="relative">
               {/* Avatar Button */}
@@ -59,7 +59,7 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
 
               {/* Dropdown */}
               {dropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md py-2 z-50 border">
+                <div className="absolute right-0 mt-2 w-48 bg-white/95 shadow-lg rounded-md py-2 z-50 border backdrop-blur-md">
                   <Link
                     to="/my-profile"
                     className="block px-4 py-2 hover:bg-gray-100"
@@ -72,7 +72,7 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
                     className="block px-4 py-2 hover:bg-gray-100"
                     onClick={() => setDropdownOpen(false)}
                   >
-                    Admin 
+                    Admin
                   </Link>
 
                   {/* Admin Only */}
@@ -113,24 +113,21 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
             </div>
           ) : (
             <>
-              <Link to="/login" className="hover:text-yellow-400 transition">Login</Link>
-              <Link to="/register" className="hover:text-yellow-400 transition">Register</Link>
+              <Link to="/login" className="hover:text-yellow-500 transition">Login</Link>
+              <Link to="/register" className="hover:text-yellow-500 transition">Register</Link>
             </>
           )}
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* ✅ Mobile Menu Button */}
         <div className="md:hidden">
-          <button
-            onClick={() => setOpen(!open)}
-            className="focus:outline-none"
-          >
+          <button onClick={() => setOpen(!open)} className="focus:outline-none text-gray-800">
             {open ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Side Drawer */}
+      {/* ✅ Mobile Side Drawer */}
       {open && (
         <div className="md:hidden bg-black/90 fixed top-0 left-0 h-full w-64 p-6 space-y-6 z-40">
           <button
@@ -152,14 +149,6 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
             <>
               <Link to="/my-profile" className="block text-white text-lg hover:text-yellow-300" onClick={() => setOpen(false)}>Your Profile</Link>
               <Link to="/Admin" className="block text-white text-lg hover:text-yellow-300" onClick={() => setOpen(false)}>Admin</Link>
-
-              {/* {isAdmin && (
-                <>
-                  <Link to="/admin/manage-listings" className="block text-red-400 text-lg hover:text-yellow-300" onClick={() => setOpen(false)}>Manage Listings</Link>
-                  <Link to="/admin/manage-users" className="block text-red-400 text-lg hover:text-yellow-300" onClick={() => setOpen(false)}>Manage Users</Link>
-                  <Link to="/admin/settings" className="block text-red-400 text-lg hover:text-yellow-300" onClick={() => setOpen(false)}>Settings</Link>
-                </>
-              )} */}
 
               <button
                 onClick={handleSignOut}

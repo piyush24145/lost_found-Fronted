@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { baseUrl } from "../environment";
 import { FaTrash, FaPaperPlane } from "react-icons/fa";
 
-// ✅ Email Modal Component
+// ✅ Email Modal
 function EmailModal({ isOpen, onClose, recipient }) {
   const [formData, setFormData] = useState({
     to: recipient || "",
@@ -18,20 +18,20 @@ function EmailModal({ isOpen, onClose, recipient }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-const sendEmail = async () => {
-  try {
-    const res = await fetch(`${baseUrl}/api/email/send`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-    const data = await res.json();
-    alert(data.msg); // ✅ fixed (backend se "msg" aa raha hai)
-    onClose();
-  } catch (err) {
-    alert("❌ Failed to send email!");
-  }
-};
+  const sendEmail = async () => {
+    try {
+      const res = await fetch(`${baseUrl}/api/email/send`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      alert(data.msg || "✅ Email sent!");
+      onClose();
+    } catch (err) {
+      alert("❌ Failed to send email!");
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -46,7 +46,7 @@ const sendEmail = async () => {
           value={formData.to}
           onChange={handleChange}
           className="border w-full p-2 mb-3 rounded text-black"
-          readOnly // ✅ recipient auto-filled
+          readOnly
         />
         <input
           type="text"
@@ -106,13 +106,10 @@ export default function Dashboard() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this item?")) return;
     try {
-      const res = await fetch(`${baseUrl}/api/items/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(`${baseUrl}/api/items/${id}`, { method: "DELETE" });
       if (!res.ok) throw new Error("Failed to delete");
       setItems((prev) => prev.filter((item) => item._id !== id));
     } catch (error) {
-      console.error("Delete error:", error);
       alert("Failed to delete item!");
     }
   };
@@ -136,7 +133,7 @@ export default function Dashboard() {
 
   return (
     <div className="p-6 text-white max-w-7xl mx-auto">
-      <h2 className="text-2xl font-bold mb-6">Welcome Back2u</h2>
+      <h2 className="text-2xl font-bold mb-6">Welcome Back</h2>
 
       {/* ✅ Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
@@ -155,73 +152,114 @@ export default function Dashboard() {
       </div>
 
       {/* ✅ Verified Items Table */}
-      <div className="bg-gray-800 p-4 rounded-xl shadow">
+      <div className="bg-gray-800 p-4 rounded-xl shadow mt-6">
         <h3 className="text-xl font-semibold mb-4">Verified Reports</h3>
-        <div className="overflow-y-auto max-h-[50vh] border border-gray-700 rounded">
-          <table className="w-full border-collapse">
-            <thead className="bg-blue-700 sticky top-0">
-              <tr>
-                <th className="border border-gray-700 p-2">ID</th>
-                <th className="border border-gray-700 p-2">User</th>
-                <th className="border border-gray-700 p-2">Item</th>
-                <th className="border border-gray-700 p-2">Status</th>
-                <th className="border border-gray-700 p-2">Verification Date</th>
-                <th className="border border-gray-700 p-2">Actions</th>
-                <th className="border border-gray-700 p-2">Mail</th>
-              </tr>
-            </thead>
-            <tbody>
-              {verifiedItems.length > 0 ? (
-                verifiedItems.map((item) => (
-                  <tr key={item._id} className="text-center">
-                    <td className="border border-gray-700 p-2">{item._id}</td>
-                    <td className="border border-gray-700 p-2">
-                      {item?.name || "-"}
-                    </td>
-                    <td className="border border-gray-700 p-2">
-                      {item?.category || "-"}
-                    </td>
-                    <td className="border border-gray-700 p-2">
-                      <span
-                        className={`px-2 py-1 rounded text-white ${
-                          item?.type === "lost" ? "bg-red-600" : "bg-green-600"
-                        }`}
-                      >
-                        {item?.type}
-                      </span>
-                    </td>
-                    <td className="border border-gray-700 p-2">
-                      {item?.verifiedAt
-                        ? new Date(item.verifiedAt).toLocaleString()
-                        : "-"}
-                    </td>
-                    <td className="border border-gray-700 p-2">
-                      <button
-                        onClick={() => handleDelete(item._id)}
-                        className="text-red-500 hover:text-red-700 text-xl"
-                      >
-                        <FaTrash />
-                      </button>
-                    </td>
-                    <td className="border border-gray-700 p-2">
-                      <button
-                        onClick={() => handleEmail(item?.email)}
-                        className="text-blue-400 hover:text-blue-600 text-xl"
-                      >
-                        <FaPaperPlane />
-                      </button>
+
+        {/* 📱 Mobile View → Cards */}
+        <div className="sm:hidden space-y-4">
+          {verifiedItems.length > 0 ? (
+            verifiedItems.map((item) => (
+              <div key={item._id} className="bg-gray-700 rounded-lg p-4">
+                <p><span className="font-bold">ID:</span> {item._id}</p>
+                <p><span className="font-bold">User:</span> {item?.name || "-"}</p>
+                <p><span className="font-bold">Item:</span> {item?.category || "-"}</p>
+                <p>
+                  <span className="font-bold">Status:</span>{" "}
+                  <span
+                    className={`px-2 py-1 rounded text-white ${
+                      item?.type === "lost" ? "bg-red-600" : "bg-green-600"
+                    }`}
+                  >
+                    {item?.type}
+                  </span>
+                </p>
+                <p>
+                  <span className="font-bold">Verified:</span>{" "}
+                  {item?.verifiedAt ? new Date(item.verifiedAt).toLocaleString() : "-"}
+                </p>
+                <div className="flex justify-end space-x-3 mt-3">
+                  <button
+                    onClick={() => handleDelete(item._id)}
+                    className="text-red-400 hover:text-red-600 text-xl"
+                  >
+                    <FaTrash />
+                  </button>
+                  <button
+                    onClick={() => handleEmail(item?.email)}
+                    className="text-blue-400 hover:text-blue-600 text-xl"
+                  >
+                    <FaPaperPlane />
+                  </button>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-gray-400">No verified reports yet.</p>
+          )}
+        </div>
+
+        {/* 💻 Desktop View → Scrollable Table */}
+        <div className="hidden sm:block overflow-x-auto">
+          <div className="max-h-[50vh] overflow-y-auto border border-gray-700 rounded">
+            <table className="min-w-[800px] w-full border-collapse text-sm">
+              <thead className="bg-blue-700 sticky top-0">
+                <tr>
+                  <th className="border border-gray-700 p-2">ID</th>
+                  <th className="border border-gray-700 p-2">User</th>
+                  <th className="border border-gray-700 p-2">Item</th>
+                  <th className="border border-gray-700 p-2">Status</th>
+                  <th className="border border-gray-700 p-2">Verification Date</th>
+                  <th className="border border-gray-700 p-2">Actions</th>
+                  <th className="border border-gray-700 p-2">Mail</th>
+                </tr>
+              </thead>
+              <tbody>
+                {verifiedItems.length > 0 ? (
+                  verifiedItems.map((item) => (
+                    <tr key={item._id} className="text-center">
+                      <td className="border border-gray-700 p-2">{item._id}</td>
+                      <td className="border border-gray-700 p-2">{item?.name || "-"}</td>
+                      <td className="border border-gray-700 p-2">{item?.category || "-"}</td>
+                      <td className="border border-gray-700 p-2">
+                        <span
+                          className={`px-2 py-1 rounded text-white ${
+                            item?.type === "lost" ? "bg-red-600" : "bg-green-600"
+                          }`}
+                        >
+                          {item?.type}
+                        </span>
+                      </td>
+                      <td className="border border-gray-700 p-2">
+                        {item?.verifiedAt ? new Date(item.verifiedAt).toLocaleString() : "-"}
+                      </td>
+                      <td className="border border-gray-700 p-2">
+                        <button
+                          onClick={() => handleDelete(item._id)}
+                          className="text-red-500 hover:text-red-700 text-xl"
+                        >
+                          <FaTrash />
+                        </button>
+                      </td>
+                      <td className="border border-gray-700 p-2">
+                        <button
+                          onClick={() => handleEmail(item?.email)}
+                          className="text-blue-400 hover:text-blue-600 text-xl"
+                        >
+                          <FaPaperPlane />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="7" className="text-center p-4 text-gray-400">
+                      No verified reports yet.
                     </td>
                   </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="7" className="text-center p-4 text-gray-400">
-                    No verified reports yet.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 

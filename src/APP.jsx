@@ -25,6 +25,8 @@ import MatchedItems from "./pages/MatchedItems";
 import TermsOfUse from "./pages/TermsOfUse";
 import Privacy from "./pages/Privacy";
 import AdminModule from "./component/AdminModule";
+import ForgotPassword from "./component/ForgotPassword";
+import ResetPassword from "./component/ResetPassword";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -83,6 +85,9 @@ const App = () => {
           <Route path="/hero-section" element={<Herosection />} />
           <Route path="/terms-condition" element={<TermsOfUse />} />
           <Route path="/privacy-policy" element={<Privacy />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+       <Route path="/reset-password/:token" element={<ResetPassword />} />
+
 
           {/* Protected routes (for authenticated users) */}
           <Route

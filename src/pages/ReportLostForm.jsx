@@ -121,7 +121,7 @@ const ReportLostForm = () => {
         </div>
 
         <div>
-          <label className="block font-semibold mb-1">Email (Optional)</label>
+          <label className="block font-semibold mb-1">Email (Compulsory)</label>
           <input
             name="email"
             value={formData.email}
