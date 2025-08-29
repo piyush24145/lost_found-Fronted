@@ -84,7 +84,7 @@ const App = () => {
           <Route path="/item-detailsfound/:id" element={<DetailsFound />} />
           <Route path="/hero-section" element={<Herosection />} />
           <Route path="/terms-condition" element={<TermOfUse/>} />
-          <Route path="/privacy-policy" element={<Privacy />} />
+          <Route path="/privacy-policy" element={<Privacy/>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
        <Route path="/reset-password/:token" element={<ResetPassword />} />
 
