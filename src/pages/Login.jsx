@@ -31,10 +31,10 @@ export default function Login({ onLogin }) {
         return;
       }
 
-      // ✅ Save token
+   
       localStorage.setItem("token", data.token);
 
-      // ✅ Save user
+     
       localStorage.setItem(
         "user",
         JSON.stringify({
@@ -62,9 +62,9 @@ export default function Login({ onLogin }) {
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* ✅ Main Section with Split Layout */}
+    
       <div className="flex flex-1">
-        {/* Left Image Section */}
+     
         <div className="hidden md:flex w-1/2 items-center justify-center bg-gray-200">
           <img
             src="/6593bae1-d742-4d01-86c5-d6be4738ef55 (1).png" 
@@ -73,7 +73,7 @@ export default function Login({ onLogin }) {
           />
         </div>
 
-        {/* Right Login Box */}
+     
         <div className="flex w-full md:w-1/2 justify-center items-center bg-gradient-to-r from-yellow-50 to-green-50 p-8">
           <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-lg">
             <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
@@ -128,7 +128,7 @@ export default function Login({ onLogin }) {
         </div>
       </div>
 
-      {/* ✅ Footer */}
+   
       <footer className="bg-gray-100 py-6 px-8 flex flex-col md:flex-row justify-between items-center text-gray-600 text-sm">
         <div className="mb-4 md:mb-0">
           <p className="font-semibold">Help</p>

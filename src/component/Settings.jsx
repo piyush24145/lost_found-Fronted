@@ -9,7 +9,7 @@ const Settings = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     alert("Settings updated successfully!");
-    // Yaha API call kar ke backend me save karna hoga
+   
   };
 
   return (
@@ -20,7 +20,7 @@ const Settings = () => {
         onSubmit={handleSubmit}
         className="bg-gray-800 p-6 rounded-lg shadow-md space-y-6 max-w-2xl"
       >
-        {/* Username */}
+     
         <div>
           <label className="block text-sm font-semibold mb-2">Username</label>
           <input
@@ -31,7 +31,7 @@ const Settings = () => {
           />
         </div>
 
-        {/* Email */}
+       
         <div>
           <label className="block text-sm font-semibold mb-2">Email</label>
           <input
@@ -42,7 +42,7 @@ const Settings = () => {
           />
         </div>
 
-        {/* Password */}
+    
         <div>
           <label className="block text-sm font-semibold mb-2">New Password</label>
           <input
@@ -54,7 +54,7 @@ const Settings = () => {
           />
         </div>
 
-        {/* Notifications */}
+       
         <div className="flex items-center gap-3">
           <input
             type="checkbox"
@@ -65,7 +65,7 @@ const Settings = () => {
           <label className="text-sm">Enable Email Notifications</label>
         </div>
 
-        {/* Save Button */}
+    
         <button
           type="submit"
           className="w-full bg-blue-600 py-2 rounded-lg font-semibold hover:bg-blue-700 transition"

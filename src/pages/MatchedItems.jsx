@@ -79,7 +79,7 @@ export default function MatchedItems() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {matchedItems.map((item, index) => (
           <div
-            key={`${item._id}-parent-${index}`}  // ✅ unique key for parent
+            key={`${item._id}-parent-${index}`}  
             className="border border-gray-200 rounded-xl shadow-lg p-5 bg-white hover:shadow-xl transition-shadow duration-300"
           >
             <h3 className="text-xl font-bold text-indigo-700 mb-2">{item.title}</h3>
@@ -98,7 +98,7 @@ export default function MatchedItems() {
 
             {item.matchedWith && (
               <div
-                key={`${item.matchedWith._id}-child-${index}`} // ✅ unique key for child
+                key={`${item.matchedWith._id}-child-${index}`} 
                 className="mt-3 p-3 border-t border-gray-200 bg-indigo-50 rounded-lg"
               >
                 <h4 className="font-semibold text-indigo-800 mb-2">

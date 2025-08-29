@@ -5,19 +5,19 @@ import Navbar from "../components/Navbar";
 const Home = () => {
   return (
     <div className="min-h-screen flex flex-col">
-      {/* ✅ Transparent White Navbar */}
+      
       <div className="bg-white/80 backdrop-blur-md shadow-md sticky top-0 z-50">
  
       </div>
 
-      {/* ✅ Background Image Section */}
+      
       <div
         className="p-6 text-center flex flex-col items-center justify-center flex-1 relative bg-cover bg-center"
         style={{
-          backgroundImage: "url('/fe5b3a24-3706-472f-990b-667aad848513.png')", // 👈 apna image path yaha dal
+          backgroundImage: "url('/fe5b3a24-3706-472f-990b-667aad848513.png')", 
         }}
       >
-        {/* Overlay for readability */}
+       
         <div className="absolute inset-0 bg-black/40"></div>
 
         <div className="relative z-10 text-white">
@@ -28,7 +28,7 @@ const Home = () => {
             Find what you lost, reunite what you found!
           </p>
 
-          {/* Buttons */}
+   
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               to="/reportlost"
@@ -46,7 +46,7 @@ const Home = () => {
         </div>
       </div>
 
-      {/* ✅ College Numbers Section */}
+  
       <section className="bg-white py-12">
         <div className="max-w-6xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">

@@ -12,7 +12,7 @@ const LostItems = () => {
       const res = await fetch(`${baseUrl}/api/items?type=lost`);
       if (!res.ok) throw new Error("Failed to fetch lost items");
       const data = await res.json();
-      setLostItems(data); // ✅ backend returns array directly
+      setLostItems(data); 
     } catch (err) {
       console.error("❌ Fetch error:", err.message);
       setError("Failed to load lost items. Please try again.");

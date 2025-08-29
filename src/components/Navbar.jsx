@@ -17,7 +17,7 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
   return (
     <nav className="px-6 py-4 shadow-md bg-white/70 backdrop-blur-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
-        {/* ✅ Logo */}
+   
         <Link
           to="/"
           className="flex items-center space-x-2 hover:scale-105 transform transition duration-300"
@@ -33,7 +33,6 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
 
         </Link>
 
-        {/* ✅ Desktop Menu */}
         <div className="hidden md:flex space-x-6 items-center text-gray-700 font-medium">
           <Link to="/" className="hover:text-yellow-500 transition">Home</Link>
           <Link to="/about" className="hover:text-yellow-500 transition">About Us</Link>
@@ -42,10 +41,10 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
           <Link to="/match" className="hover:text-yellow-500 transition">Matched Items</Link>
           <Link to="/search" className="hover:text-yellow-500 transition">Search</Link>
 
-          {/* ✅ If user authenticated */}
+         
           {isAuthenticated ? (
             <div className="relative">
-              {/* Avatar Button */}
+         
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="focus:outline-none rounded-full border-2 border-yellow-400"
@@ -57,7 +56,7 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
                 />
               </button>
 
-              {/* Dropdown */}
+             
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white/95 shadow-lg rounded-md py-2 z-50 border backdrop-blur-md">
                   <Link
@@ -75,7 +74,7 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
                     Admin
                   </Link>
 
-                  {/* Admin Only */}
+                  
                   {isAdmin && (
                     <>
                       <Link
@@ -119,7 +118,7 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
           )}
         </div>
 
-        {/* ✅ Mobile Menu Button */}
+      
         <div className="md:hidden">
           <button onClick={() => setOpen(!open)} className="focus:outline-none text-gray-800">
             {open ? <X size={28} /> : <Menu size={28} />}
@@ -127,7 +126,7 @@ const Navbar = ({ isAuthenticated, isAdmin, onLogout }) => {
         </div>
       </div>
 
-      {/* ✅ Mobile Side Drawer */}
+    
       {open && (
         <div className="md:hidden bg-black/90 fixed top-0 left-0 h-full w-64 p-6 space-y-6 z-40">
           <button

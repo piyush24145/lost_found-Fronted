@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-gray-300 pt-12 pb-6">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
-        {/* Brand Info */}
+      
         <div>
           <h1 className="text-2xl font-extrabold tracking-wide mb-3 text-white">
             Lost & Found
@@ -16,7 +16,7 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Contact Info */}
+      
         <div>
           <h2 className="text-lg font-bold mb-4 border-b-2 border-indigo-500 inline-block text-white">
             Contact Information
@@ -58,7 +58,7 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Extra Links */}
+       
         <div>
           <h2 className="text-lg font-bold mb-4 border-b-2 border-indigo-500 inline-block text-white">
             Additional Links
@@ -84,7 +84,7 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Bottom bar */}
+      
       <div className="border-t border-gray-700 mt-10 pt-4 text-center text-sm text-gray-500">
         © {new Date().getFullYear()} Lost & Found. All rights reserved.
       </div>

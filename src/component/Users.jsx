@@ -5,7 +5,6 @@ function Users() {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  // ✅ Fetch users
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -23,7 +22,6 @@ function Users() {
     fetchUsers();
   }, []);
 
-  // ✅ Delete user
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
@@ -94,7 +92,7 @@ function Users() {
         </table>
       </div>
 
-      {/* Edit Modal */}
+   
       {selectedUser && (
         <EditUserModal
           user={selectedUser}

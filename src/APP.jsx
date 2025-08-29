@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-// Common Components
+
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Herosection from "./components/Herosection";
 
-// User Pages
+
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -43,7 +43,7 @@ const App = () => {
       }
     } catch (error) {
       console.error("Invalid user JSON in localStorage, clearing...", error);
-      localStorage.removeItem("user"); // ❌ agar JSON broken h to clear
+      localStorage.removeItem("user"); 
     }
 
     setIsAuthenticated(!!token);

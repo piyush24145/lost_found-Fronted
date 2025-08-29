@@ -1,4 +1,4 @@
-// src/pages/FoundDetails.jsx
+
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
@@ -36,13 +36,13 @@ export default function DetailsLost() {
         {item.type} Item Details
       </h2>
 
-      {/* Images */}
+    
       {item.images && item.images.length > 0 && (
         <div className="flex flex-wrap gap-4 mb-6">
           {item.images.map((img, index) => (
             <img
               key={index}
-              src={`${baseUrl}${img}`} // ✅ backend me /uploads serve ho rha
+              src={`${baseUrl}${img}`} 
               alt="Item"
               className="w-40 h-40 object-cover rounded-lg border"
               onError={(e) => (e.target.src = "https://via.placeholder.com/150")}
@@ -51,7 +51,7 @@ export default function DetailsLost() {
         </div>
       )}
 
-      {/* Info */}
+    
       <div className="space-y-3">
         <p><strong>Title:</strong> {item.title}</p>
         <p><strong>Category:</strong> {item.category}</p>
@@ -59,7 +59,7 @@ export default function DetailsLost() {
         <p><strong>Location:</strong> {item.location}</p>
         <p><strong>Date:</strong> {new Date(item.date).toLocaleDateString()}</p>
 
-        {/* Contact */}
+      
         <h3 className="text-xl font-semibold mt-4">Contact Details</h3>
         <p><strong>Name:</strong> {item.name}</p>
         <p><strong>Email:</strong> {item.email}</p>
