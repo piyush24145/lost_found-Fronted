@@ -22,11 +22,11 @@ import EditProfileModal from "./pages/EditProfileModal";
 import DetailsLost from "./pages/DetailsLost";
 import DetailsFound from "./pages/DetailsFound";
 import MatchedItems from "./pages/MatchedItems";
-import TermsOfUse from "./pages/TermsOfUse";
 import Privacy from "./pages/Privacy";
 import AdminModule from "./component/AdminModule";
 import ForgotPassword from "./component/ForgotPassword";
 import ResetPassword from "./component/ResetPassword";
+import TermOfUse from "./pages/TermofUse";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -83,7 +83,7 @@ const App = () => {
           <Route path="/item-detailsLost/:id" element={<DetailsLost />} />
           <Route path="/item-detailsfound/:id" element={<DetailsFound />} />
           <Route path="/hero-section" element={<Herosection />} />
-          <Route path="/terms-condition" element={<TermsOfUse />} />
+          <Route path="/terms-condition" element={<TermOfUse/>} />
           <Route path="/privacy-policy" element={<Privacy />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
        <Route path="/reset-password/:token" element={<ResetPassword />} />
