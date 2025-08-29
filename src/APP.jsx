@@ -26,8 +26,8 @@ import MatchedItems from "./pages/MatchedItems";
 import AdminModule from "./component/AdminModule";
 import ForgotPassword from "./component/ForgotPassword";
 import ResetPassword from "./component/ResetPassword";
-import TermOfUse from "./pages/TermofUse";
 import PrivacyPart from "./pages/PrivacyPart";
+import Term from "./pages/Term";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -84,7 +84,7 @@ const App = () => {
           <Route path="/item-detailsLost/:id" element={<DetailsLost />} />
           <Route path="/item-detailsfound/:id" element={<DetailsFound />} />
           <Route path="/hero-section" element={<Herosection />} />
-          <Route path="/terms-condition" element={<TermOfUse/>} />
+          <Route path="/terms-condition" element={<Term/>} />
         <Route path="/privacy-policy" element={<PrivacyPart/>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
        <Route path="/reset-password/:token" element={<ResetPassword />} />
