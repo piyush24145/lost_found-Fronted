@@ -148,6 +148,8 @@ const ReportFoundForm = () => {
             <option>Documents</option>
             <option>Jewellery</option>
            <option>Id-Card</option>
+            <option>Notebook</option>
+              <option>Watch</option>
             <option>Other</option>
           </select>
         </div>

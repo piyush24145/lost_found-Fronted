@@ -8,8 +8,8 @@ function Listings() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
-  const [selectedItem, setSelectedItem] = useState(null); 
-  const [showPopup, setShowPopup] = useState(false); 
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
 
   const fetchItems = async () => {
     try {
@@ -26,26 +26,23 @@ function Listings() {
     fetchItems();
   }, []);
 
-const deleteItem = async (id) => {
-  if (!window.confirm("Are you sure you want to delete this item?")) return;
-  try {
-    await axios.delete(`${baseUrl}/api/admin/items/${id}`); 
-    setItems(items.filter((item) => item._id !== id));
-  } catch (error) {
-    console.error("Delete failed:", error.response?.data || error.message);
-    alert(error.response?.data?.message || "Delete failed");
-  }
-};
+  const deleteItem = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this item?")) return;
+    try {
+      await axios.delete(`${baseUrl}/api/admin/items/${id}`);
+      setItems(items.filter((item) => item._id !== id));
+    } catch (error) {
+      console.error("Delete failed:", error.response?.data || error.message);
+      alert(error.response?.data?.message || "Delete failed");
+    }
+  };
 
-
-  
   const verifyItem = async () => {
     if (!selectedItem) return;
     try {
       await axios.put(`${baseUrl}/api/items/verify/${selectedItem._id}`);
       alert("✅ Item Verified and moved to Dashboard!");
 
-      
       setItems((prev) =>
         prev.map((item) =>
           item._id === selectedItem._id ? { ...item, verified: true } : item
@@ -83,7 +80,6 @@ const deleteItem = async (id) => {
     <div className="bg-gray-900 p-6 rounded shadow text-white h-[80vh] flex flex-col">
       <h3 className="text-lg font-bold mb-4">Manage Listings</h3>
 
-     
       <div className="flex gap-2 mb-4">
         <input
           type="text"
@@ -103,7 +99,6 @@ const deleteItem = async (id) => {
         </select>
       </div>
 
-    
       <div className="flex-1 overflow-y-auto border border-gray-700 rounded">
         <table className="min-w-full">
           <thead className="bg-gray-700 sticky top-0 z-10">
@@ -147,7 +142,7 @@ const deleteItem = async (id) => {
                 <td className="p-2">
                   {item.images && item.images.length > 0 ? (
                     <img
-                      src={`${baseUrl}${item.images[0]}`} 
+                      src={`${baseUrl}${item.images[0]}`}
                       alt="item"
                       className="h-16 w-16 object-cover rounded"
                     />
@@ -156,7 +151,6 @@ const deleteItem = async (id) => {
                   )}
                 </td>
                 <td className="p-2 flex gap-2 items-center">
-                 
                   <button
                     onClick={() => deleteItem(item._id)}
                     className="text-red-500 hover:text-red-700"
@@ -164,7 +158,6 @@ const deleteItem = async (id) => {
                     <FaTrash />
                   </button>
 
-                 
                   {!item.verified && (
                     <button
                       onClick={() => {
@@ -188,13 +181,13 @@ const deleteItem = async (id) => {
         </table>
       </div>
 
-     
+      {/* ✅ Updated Popup */}
       {showPopup && selectedItem && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded-xl w-96 text-black shadow-lg text-center">
+       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+  <div className="bg-white p-6 rounded-xl w-96 text-black shadow-lg text-center">
+
             <h2 className="text-lg font-semibold mb-4">
-              Kya aap <span className="font-bold">{selectedItem.name}</span> ko
-              verify karna chahte ho?
+              Kya aap is item ko verify karna chahte ho?
             </h2>
             <div className="flex justify-around">
               <button
