@@ -22,11 +22,12 @@ import EditProfileModal from "./pages/EditProfileModal";
 import DetailsLost from "./pages/DetailsLost";
 import DetailsFound from "./pages/DetailsFound";
 import MatchedItems from "./pages/MatchedItems";
-import Privacy from "./pages/Privacy";
+
 import AdminModule from "./component/AdminModule";
 import ForgotPassword from "./component/ForgotPassword";
 import ResetPassword from "./component/ResetPassword";
 import TermOfUse from "./pages/TermofUse";
+import PrivacyPart from "./pages/PrivacyPart";
 
 const App = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -79,12 +80,12 @@ const App = () => {
           <Route path="/register" element={<Register onRegister={handleLogin} />} />
           <Route path="/about" element={<Aboutus />} />
           <Route path="/my-profile" element={<ProfilePage />} />
-          <Route path="/edit-profile" element={<EditProfileModal />} />
+          <Route path="/edit-profile" element={<EditProfileModal />} />              
           <Route path="/item-detailsLost/:id" element={<DetailsLost />} />
           <Route path="/item-detailsfound/:id" element={<DetailsFound />} />
           <Route path="/hero-section" element={<Herosection />} />
           <Route path="/terms-condition" element={<TermOfUse/>} />
-          <Route path="/privacy-policy" element={<Privacy/>} />
+        <Route path="/privacy-policy" element={<PrivacyPart/>} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
        <Route path="/reset-password/:token" element={<ResetPassword />} />
 
