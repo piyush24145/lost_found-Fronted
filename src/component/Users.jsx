@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EditUserModal from "./EditUserModal";
+import { baseUrl } from "../environment";
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -25,7 +26,7 @@ function Users() {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     try {
-      await fetch(`http://localhost:5000/api/users/${id}`, {
+      await fetch(`${baseUrl}/api/users/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
