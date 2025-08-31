@@ -37,7 +37,7 @@ function EmailModal({ isOpen, onClose, recipient }) {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-xl shadow-lg p-6 w-[400px]">
+      <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-md mx-2">
         <h2 className="text-lg font-semibold mb-4 text-black">Send Email</h2>
         <input
           type="email"
@@ -61,7 +61,7 @@ function EmailModal({ isOpen, onClose, recipient }) {
           placeholder="Your Message"
           value={formData.message}
           onChange={handleChange}
-          className="border w-full p-2 mb-3 rounded text-black"
+          className="border w-full p-2 mb-3 rounded text-black min-h-[100px]"
         />
         <div className="flex justify-end space-x-2">
           <button
@@ -132,20 +132,20 @@ export default function Dashboard() {
   if (loading) return <p className="text-center mt-10">Loading...</p>;
 
   return (
-    <div className="p-6 text-white max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 text-white max-w-7xl mx-auto">
       <h2 className="text-2xl font-bold mb-6">Welcome Back</h2>
 
       {/* ✅ Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
-        <div className="bg-gray-800 p-6 rounded-xl shadow text-center">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8">
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-xl shadow text-center">
           <h3 className="text-lg">Total Reports</h3>
           <p className="text-2xl font-bold text-blue-400">{totalReports}</p>
         </div>
-        <div className="bg-gray-800 p-6 rounded-xl shadow text-center border-2 border-green-500">
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-xl shadow text-center border-2 border-green-500">
           <h3 className="text-lg">Resolved Cases</h3>
           <p className="text-2xl font-bold text-green-400">{resolvedCases}</p>
         </div>
-        <div className="bg-gray-800 p-6 rounded-xl shadow text-center">
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-xl shadow text-center">
           <h3 className="text-lg">Pending Reports</h3>
           <p className="text-2xl font-bold text-red-500">{pendingCases}</p>
         </div>
@@ -201,7 +201,7 @@ export default function Dashboard() {
         {/* 💻 Desktop View → Scrollable Table */}
         <div className="hidden sm:block overflow-x-auto">
           <div className="max-h-[50vh] overflow-y-auto border border-gray-700 rounded">
-            <table className="min-w-[800px] w-full border-collapse text-sm">
+            <table className="min-w-[900px] w-full border-collapse text-sm">
               <thead className="bg-blue-700 sticky top-0">
                 <tr>
                   <th className="border border-gray-700 p-2">ID</th>
