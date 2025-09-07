@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { baseUrl } from "../environment";
 
 const ReportFoundForm = () => {
@@ -12,11 +13,11 @@ const ReportFoundForm = () => {
     title: "",
     description: "",
     location: "",
-    date: "", 
+    date: "",
   });
 
   const token = localStorage.getItem("token");
- const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -38,50 +39,40 @@ const ReportFoundForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = new FormData();
-    data.append("type", "found"); 
-    data.append("name", formData.name);
-    data.append("contactNumber", formData.contactNumber);
-    data.append("email", formData.email);
-    data.append("category", formData.category);
-    data.append("title", formData.title);
-    data.append("description", formData.description);
-    data.append("location", formData.location);
-    data.append("date", formData.date);
-
-    images.forEach((img) => {
-      data.append("images", img.file);
-    });
-
     try {
-      const res = await fetch(`${baseUrl}/api/items`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: data,
+      const data = new FormData();
+      data.append("type", "found");
+      Object.keys(formData).forEach((key) => {
+        data.append(key, formData[key]);
       });
 
-      if (res.ok) {
-        alert("Found item reported successfully!");
-        setFormData({
-          name: "",
-          contactNumber: "",
-          email: "",
-          category: "",
-          title: "",
-          description: "",
-          location: "",
-          date: "",
-        });
-        setImages([]);
-        navigate("/found");
-      } else {
-        alert("Failed to report found item");
-      }
+      images.forEach((img) => {
+        data.append("images", img.file);
+      });
+
+      await axios.post(`${baseUrl}/api/items`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("✅ Found item reported successfully!");
+      setFormData({
+        name: "",
+        contactNumber: "",
+        email: "",
+        category: "",
+        title: "",
+        description: "",
+        location: "",
+        date: "",
+      });
+      setImages([]);
+      navigate("/found");
     } catch (err) {
       console.error(err);
-      alert("Error reporting found item");
+      alert("❌ Failed to report found item. Please try again.");
     }
   };
 
@@ -95,7 +86,7 @@ const ReportFoundForm = () => {
         onSubmit={handleSubmit}
         className="space-y-6 bg-white shadow-lg p-8 rounded-xl border"
       >
-      
+        {/* Name */}
         <div>
           <label className="block font-semibold mb-1">Your Name</label>
           <input
@@ -109,6 +100,7 @@ const ReportFoundForm = () => {
           />
         </div>
 
+        {/* Contact Number */}
         <div>
           <label className="block font-semibold mb-1">Contact Number</label>
           <input
@@ -122,6 +114,7 @@ const ReportFoundForm = () => {
           />
         </div>
 
+        {/* Email */}
         <div>
           <label className="block font-semibold mb-1">Email (Compulsory)</label>
           <input
@@ -131,8 +124,11 @@ const ReportFoundForm = () => {
             type="email"
             className="w-full border p-2 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
             placeholder="Enter email address"
+            required
           />
         </div>
+
+        {/* Category */}
         <div>
           <label className="block font-semibold mb-1">Item Category</label>
           <select
@@ -147,13 +143,14 @@ const ReportFoundForm = () => {
             <option>Mobile Phone</option>
             <option>Documents</option>
             <option>Jewellery</option>
-           <option>Id-Card</option>
+            <option>Id-Card</option>
             <option>Notebook</option>
-              <option>Watch</option>
+            <option>Watch</option>
             <option>Other</option>
           </select>
         </div>
 
+        {/* Title */}
         <div>
           <label className="block font-semibold mb-1">Title</label>
           <input
@@ -167,6 +164,7 @@ const ReportFoundForm = () => {
           />
         </div>
 
+        {/* Description */}
         <div>
           <label className="block font-semibold mb-1">Description</label>
           <textarea
@@ -180,6 +178,7 @@ const ReportFoundForm = () => {
           ></textarea>
         </div>
 
+        {/* Location */}
         <div>
           <label className="block font-semibold mb-1">Location Found</label>
           <input
@@ -193,6 +192,7 @@ const ReportFoundForm = () => {
           />
         </div>
 
+        {/* Date */}
         <div>
           <label className="block font-semibold mb-1">Date Found</label>
           <input
@@ -204,11 +204,13 @@ const ReportFoundForm = () => {
             required
           />
         </div>
+
+        {/* Images */}
         <div>
           <label className="block font-semibold mb-1">Upload Images</label>
           <input
             type="file"
-          accept="image/jpeg,image/png,image/webp"
+            accept="image/jpeg,image/png,image/webp"
             multiple
             onChange={handleImageChange}
             className="block"
@@ -236,6 +238,7 @@ const ReportFoundForm = () => {
           </div>
         </div>
 
+        {/* Submit Button */}
         <div className="text-center">
           <button
             type="submit"

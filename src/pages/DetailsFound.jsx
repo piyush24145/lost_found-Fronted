@@ -46,11 +46,14 @@ const DetailsFound = () => {
       {item.images && item.images.length > 0 && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           {item.images.map((img, idx) => (
-            <img
-              key={idx}
-              src={`${baseUrl}${img}`}
+             <img
+              src={
+                item.images && item.images.length > 0
+                  ? item.images[0]   // ✅ FIXED
+                  : "https://via.placeholder.com/150"
+              }
               alt={item.title}
-              className="w-full h-64 object-cover rounded-lg shadow"
+              className="w-full h-48 object-cover rounded"
             />
           ))}
         </div>

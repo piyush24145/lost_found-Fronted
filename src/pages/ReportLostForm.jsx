@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../environment";
+import axios from "axios";
 
 const ReportLostForm = () => {
   const [images, setImages] = useState([]);
@@ -34,55 +35,44 @@ const ReportLostForm = () => {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    const data = new FormData();
-    data.append("type", "lost"); 
-    data.append("name", formData.name);
-    data.append("contactNumber", formData.contactNumber);
-    data.append("email", formData.email);
-    data.append("category", formData.category);
-    data.append("title", formData.title);
-    data.append("description", formData.description);
-    data.append("location", formData.location);
-    data.append("date", formData.date);
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    images.forEach((img) => {
-      data.append("images", img.file);
+  const data = new FormData();
+  Object.entries(formData).forEach(([key, value]) => {
+    data.append(key, value);
+  });
+  data.append("type", "lost");
+  images.forEach((img) => data.append("images", img.file));
+
+  try {
+    const res = await axios.post(`${baseUrl}/api/items`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
     });
 
-    try {
-      const res = await fetch(`${baseUrl}/api/items`, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        body: data,
-      });
+    alert("Lost item reported successfully!");
+    setFormData({
+      name: "",
+      contactNumber: "",
+      email: "",
+      category: "",
+      title: "",
+      description: "",
+      location: "",
+      date: "",
+    });
+    setImages([]);
+    navigate("/lost");
 
-      if (res.ok) {
-        alert("Lost item reported successfully!");
-        setFormData({
-          name: "",
-          contactNumber: "",
-          email: "",
-          category: "",
-          title: "",
-          description: "",
-          location: "",
-          date: "",
-        });
-        setImages([]);
-        navigate("/lost");
-      } else {
-        alert("Failed to report lost item");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Error reporting lost item");
-    }
-  };
+  } catch (err) {
+    console.error(err);
+    alert("Failed to report lost item");
+  }
+};
 
   return (
     <div className="max-w-3xl mx-auto p-6">

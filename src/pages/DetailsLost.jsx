@@ -41,11 +41,13 @@ export default function DetailsLost() {
         <div className="flex flex-wrap gap-4 mb-6">
           {item.images.map((img, index) => (
             <img
-              key={index}
-              src={`${baseUrl}${img}`} 
-              alt="Item"
-              className="w-40 h-40 object-cover rounded-lg border"
-              onError={(e) => (e.target.src = "https://via.placeholder.com/150")}
+              src={
+                item.images && item.images.length > 0
+                  ? item.images[0]   // ✅ FIXED
+                  : "https://via.placeholder.com/150"
+              }
+              alt={item.title}
+              className="w-full h-48 object-cover rounded"
             />
           ))}
         </div>

@@ -144,20 +144,15 @@ function Listings() {
                   <td className="p-2">{item.contactNumber || "N/A"}</td>
                   <td className="p-2">
                     {item.images && item.images.length > 0 ? (
-                  <img
-  src={
-    item.images && item.images.length > 0
-      ? `${baseUrl}${
-          item.images[0].startsWith("/uploads")
-            ? item.images[0]
-            : "/uploads/" + item.images[0]
-        }`
-      : "https://via.placeholder.com/150"
-  }
-  alt="item"
-  className="h-14 w-14 object-cover rounded"
-/>
-
+                      <img
+                        src={
+                          item.images[0].startsWith("/uploads")
+                            ? `${baseUrl}${item.images[0]}`
+                            : item.images[0]
+                        }
+                        alt={item.title || "item"}
+                        className="h-14 w-14 object-cover rounded"
+                      />
                     ) : (
                       "No Img"
                     )}
@@ -202,20 +197,15 @@ function Listings() {
           >
             <div className="flex gap-3">
               {item.images && item.images.length > 0 ? (
-               <img
-  src={
-    item.images && item.images.length > 0
-      ? `${baseUrl}${
-          item.images[0].startsWith("/uploads")
-            ? item.images[0]
-            : "/uploads/" + item.images[0]
-        }`
-      : "https://via.placeholder.com/150"
-  }
-  alt="item"
-  className="h-20 w-20 object-cover rounded"
-/>
-
+                <img
+                  src={
+                    item.images[0].startsWith("/uploads")
+                      ? `${baseUrl}${item.images[0]}`
+                      : item.images[0]
+                  }
+                  alt={item.title || "item"}
+                  className="h-20 w-20 object-cover rounded"
+                />
               ) : (
                 <div className="h-20 w-20 bg-gray-600 flex items-center justify-center text-xs text-gray-300">
                   No Img
@@ -270,7 +260,7 @@ function Listings() {
         ))}
       </div>
 
-      {/* ✅ Popup */}
+      {/* ✅ Verify Popup */}
       {showPopup && selectedItem && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-xl w-80 text-black shadow-lg text-center">
@@ -299,4 +289,3 @@ function Listings() {
 }
 
 export default Listings;
-

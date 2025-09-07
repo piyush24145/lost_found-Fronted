@@ -54,7 +54,7 @@ function Users() {
   };
 
   return (
-    <div className="bg-gray-800 p-6 rounded-xl shadow text-white max-w-full">
+    <div className="bg-gray-800 p-6 rounded-xl shadow text-white w-full min-h-screen overflow-x-auto">
       <h3 className="text-2xl font-bold mb-6">Manage Users</h3>
 
       {loading ? (
@@ -137,4 +137,3 @@ function Users() {
 }
 
 export default Users;
-

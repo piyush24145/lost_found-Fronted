@@ -24,12 +24,12 @@ function AdminModule() {
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         } w-64 bg-gray-800 p-4 flex flex-col transition-transform duration-300 ease-in-out md:translate-x-0 md:static md:inset-0`}
       >
-        {/* Header */}
+        {/* Sidebar Header */}
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold text-blue-400 hidden md:block">
             Admin Panel
           </h1>
-          {/* Mobile Close Btn */}
+          {/* Mobile Close Button */}
           <button
             className="md:hidden text-gray-400 hover:text-white"
             onClick={() => setSidebarOpen(false)}
@@ -39,9 +39,9 @@ function AdminModule() {
         </div>
 
         {/* Menu */}
-        <ul className="space-y-2">
+        <ul className="space-y-1">
           <li
-            className={`flex items-center p-2 rounded cursor-pointer ${
+            className={`flex items-center px-3 py-2 rounded cursor-pointer whitespace-nowrap ${
               activeTab === "dashboard" ? "bg-blue-600" : "hover:bg-gray-700"
             }`}
             onClick={() => {
@@ -49,10 +49,10 @@ function AdminModule() {
               setSidebarOpen(false);
             }}
           >
-            <FaTachometerAlt className="mr-2" /> Dashboard
+            <FaTachometerAlt className="mr-2 shrink-0" /> <span>Dashboard</span>
           </li>
           <li
-            className={`flex items-center p-2 rounded cursor-pointer ${
+            className={`flex items-center px-3 py-2 rounded cursor-pointer whitespace-nowrap ${
               activeTab === "users" ? "bg-blue-600" : "hover:bg-gray-700"
             }`}
             onClick={() => {
@@ -60,10 +60,10 @@ function AdminModule() {
               setSidebarOpen(false);
             }}
           >
-            <FaUsers className="mr-2" /> Manage Users
+            <FaUsers className="mr-2 shrink-0" /> <span>Manage Users</span>
           </li>
           <li
-            className={`flex items-center p-2 rounded cursor-pointer ${
+            className={`flex items-center px-3 py-2 rounded cursor-pointer whitespace-nowrap ${
               activeTab === "listings" ? "bg-blue-600" : "hover:bg-gray-700"
             }`}
             onClick={() => {
@@ -71,10 +71,10 @@ function AdminModule() {
               setSidebarOpen(false);
             }}
           >
-            <FaList className="mr-2" /> Manage Listings
+            <FaList className="mr-2 shrink-0" /> <span>Manage Listings</span>
           </li>
           <li
-            className={`flex items-center p-2 rounded cursor-pointer ${
+            className={`flex items-center px-3 py-2 rounded cursor-pointer whitespace-nowrap ${
               activeTab === "settings" ? "bg-blue-600" : "hover:bg-gray-700"
             }`}
             onClick={() => {
@@ -82,12 +82,12 @@ function AdminModule() {
               setSidebarOpen(false);
             }}
           >
-            <FaCog className="mr-2" /> Settings
+            <FaCog className="mr-2 shrink-0" /> <span>Settings</span>
           </li>
         </ul>
       </div>
 
-      {/* Overlay for mobile */}
+      {/* Overlay for Mobile */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-20 md:hidden"
@@ -123,7 +123,7 @@ function AdminModule() {
           {activeTab === "settings" && <Settings />}
         </div>
 
-        {/* Footer (always at bottom) */}
+        {/* Footer */}
         <footer className="p-4 bg-gray-800 text-center text-gray-400 border-t border-gray-700 text-sm">
           © {new Date().getFullYear()} Khoja Kya - Admin Panel
         </footer>
@@ -133,4 +133,3 @@ function AdminModule() {
 }
 
 export default AdminModule;
-

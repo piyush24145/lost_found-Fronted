@@ -12,7 +12,7 @@ const LostItems = () => {
       const res = await fetch(`${baseUrl}/api/items?type=lost`);
       if (!res.ok) throw new Error("Failed to fetch lost items");
       const data = await res.json();
-      setLostItems(data); 
+      setLostItems(data);
     } catch (err) {
       console.error("❌ Fetch error:", err.message);
       setError("Failed to load lost items. Please try again.");
@@ -61,7 +61,7 @@ const LostItems = () => {
             <img
               src={
                 item.images && item.images.length > 0
-                  ? `${baseUrl}${item.images[0]}`
+                  ? item.images[0]   // ✅ FIXED
                   : "https://via.placeholder.com/150"
               }
               alt={item.title}

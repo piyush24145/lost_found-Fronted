@@ -70,11 +70,15 @@ export default function Searchbar() {
             className="border border-gray-200 rounded p-4 mb-3 flex space-x-4"
           >
             {item.images && item.images.length > 0 && (
-              <img
-                src={`${baseUrl}${item.images[0]}`}
-                alt={item.title}
-                className="w-24 h-24 object-cover rounded"
-              />
+               <img
+              src={
+                item.images && item.images.length > 0
+                  ? item.images[0]   // ✅ FIXED
+                  : "https://via.placeholder.com/150"
+              }
+              alt={item.title}
+              className="w-full h-48 object-cover rounded"
+            />
             )}
 
             <div className="flex-grow">

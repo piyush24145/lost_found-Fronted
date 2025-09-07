@@ -45,10 +45,10 @@ const FoundItems = () => {
             key={item._id || item.id}
             className="bg-white shadow-md rounded-lg p-4"
           >
-            <img
+           <img
               src={
                 item.images && item.images.length > 0
-                  ? `${baseUrl}${item.images[0]}`
+                  ? item.images[0]   // ✅ FIXED
                   : "https://via.placeholder.com/150"
               }
               alt={item.title}

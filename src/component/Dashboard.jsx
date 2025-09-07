@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { baseUrl } from "../environment";
 import { FaTrash, FaPaperPlane } from "react-icons/fa";
 
-// ✅ Email Modal
+// ✅ Email Modal Component
 function EmailModal({ isOpen, onClose, recipient }) {
   const [formData, setFormData] = useState({
     to: recipient || "",
@@ -82,6 +82,7 @@ function EmailModal({ isOpen, onClose, recipient }) {
   );
 }
 
+// ✅ Dashboard Component
 export default function Dashboard() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -132,7 +133,7 @@ export default function Dashboard() {
   if (loading) return <p className="text-center mt-10">Loading...</p>;
 
   return (
-    <div className="p-4 sm:p-6 text-white max-w-7xl mx-auto">
+    <div className="p-4 sm:p-6 text-white w-full min-h-screen overflow-x-auto">
       <h2 className="text-2xl font-bold mb-6">Welcome Back</h2>
 
       {/* ✅ Stats */}
@@ -152,10 +153,10 @@ export default function Dashboard() {
       </div>
 
       {/* ✅ Verified Items Table */}
-      <div className="bg-gray-800 p-4 rounded-xl shadow mt-6">
+      <div className="bg-gray-800 p-4 rounded-xl shadow mt-6 w-full overflow-x-auto">
         <h3 className="text-xl font-semibold mb-4">Verified Reports</h3>
 
-        {/* 📱 Mobile View → Cards */}
+        {/* 📱 Mobile Cards */}
         <div className="sm:hidden space-y-4">
           {verifiedItems.length > 0 ? (
             verifiedItems.map((item) => (
@@ -198,10 +199,10 @@ export default function Dashboard() {
           )}
         </div>
 
-        {/* 💻 Desktop View → Scrollable Table */}
+        {/* 💻 Desktop Table */}
         <div className="hidden sm:block overflow-x-auto">
-          <div className="max-h-[50vh] overflow-y-auto border border-gray-700 rounded">
-            <table className="min-w-[900px] w-full border-collapse text-sm">
+          <div className="max-h-[60vh] overflow-y-auto border border-gray-700 rounded">
+            <table className="min-w-full border-collapse text-sm">
               <thead className="bg-blue-700 sticky top-0">
                 <tr>
                   <th className="border border-gray-700 p-2">ID</th>
